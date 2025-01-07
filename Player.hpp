@@ -1,22 +1,18 @@
-#ifndef PLAYER_HPP
-#define PLAYER_HPP
+#pragma once
 
 #include <string>
-#include <atomic>
 #include <SDL2/SDL.h>
-
+#include <SDL2/SDL_thread.h>
 extern "C" {
-    #include <SDL2/SDL.h>
     #include <libavformat/avformat.h>
     #include <libavcodec/avcodec.h>
     #include <libswscale/swscale.h>
+    #include <libavutil/imgutils.h>
 }
-
-#define FRAME_BUFFER_SIZE 4
 
 class Player {
 public:
-    explicit Player(const std::string& filePath);
+    explicit Player(const std::string& videoPath);
     ~Player();
 
     bool initialize();
@@ -24,24 +20,26 @@ public:
     void stop();
 
 private:
-    static int decodeFrames(void* data);
+    bool loadCodec();
+    bool prepareFrames();
+    bool setupDisplay();
 
-    std::string filePath;
+    std::string videoPath;
+
     AVFormatContext* formatContext;
     AVCodecContext* codecContext;
-    const AVCodec* codec;
-    struct SwsContext* swsContext;
+    AVCodec* codec;
     AVFrame* frame;
+    AVFrame* frameRGB;
+    SwsContext* swsContext;
     AVPacket* packet;
 
-    SDL_Thread* decodeThread;
-    std::atomic<bool> running;
-
-    AVFrame* frameBuffer[FRAME_BUFFER_SIZE];
-    int frameBufferIndex;
-
+    SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Texture* texture;
-};
 
-#endif // PLAYER_HPP
+    uint8_t* buffer;
+    int videoStreamIndex;
+
+    bool running;
+};
