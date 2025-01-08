@@ -39,7 +39,7 @@ This project is currently a **Work in Progress** and is not yet usable in its cu
 1. Clone this repository into your development environment:
 
    ```bash
-   git clone https://github.com/your-username/WiiU_VLC_Player.git
+   git clone https://github.com/NassimKhal/WiiU_VLC_Player.git
    ```
 
 2. Ensure the necessary libraries are installed:
@@ -83,7 +83,7 @@ This project is currently a **Work in Progress** and is not yet usable in its cu
 
 ## Contribution
 
-Contributions are welcome! To report an issue or propose a feature, please open an [issue](https://github.com/your-username/WiiU_VLC_Player/issues).
+Contributions are welcome! To report an issue or propose a feature, please open an [issue](https://github.com/NassimKhal/WiiU_VLC_Player/issues).
 
 ## License
 
